@@ -1,0 +1,94 @@
+@use "sass:math";
+
+$image-bg-color: orange;
+$expanded-area-bg-color: #888;
+
+.list-items {
+	display: block;
+	overflow: hidden; // Clearfix.
+	padding: 1em 0;
+
+	> li {
+		box-sizing: border-box;
+		float: left;
+		padding: 1em;
+		list-style: none;
+
+		a {
+			background: $image-bg-color;
+			background-size: cover;
+			border-radius: 8px;
+			color: #fff;
+			display: block;
+			font-size: 2em;
+			line-height: 1;
+			padding: 25% 1em;
+			position: relative;
+			text-align: center;
+			text-decoration: none;
+			-webkit-font-smoothing: antialiased;
+			-moz-osx-font-smoothing: grayscale;
+			&:hover {
+				background: lighten($image-bg-color, 10%);
+			}
+			&.active {
+				background: darken($image-bg-color, 10%);
+				&:after {
+					content: "";
+					background-color: transparent;
+					border-bottom: 0.375em solid $expanded-area-bg-color;
+					border-left: 0.375em solid transparent;
+					border-right: 0.375em solid transparent;
+					bottom: -0.5em;
+					height: 0;
+					left: 50%;
+					margin-left: -0.375em;
+					position: absolute;
+					width: 0;
+				}
+			}
+
+			.title {
+				font-size: 1.375rem;
+				position: relative;
+				z-index: 2;
+			}
+
+			.content {
+				font-size: 0.625rem;
+				font-weight: 300;
+				position: relative;
+				z-index: 2;
+			}
+			&::after {
+				content: "";
+				background: #1b1b1b94 0% 0% no-repeat padding-box;
+				border-radius: 8px;
+				position: absolute;
+				right: 0;
+				left: 0;
+				top: 0;
+				bottom: 0;
+				z-index: 1;
+			}
+		}
+
+		@media only screen and (max-width: 39.99em) {
+			width: 100%;
+		}
+
+		@media only screen and (min-width: 40em) and (max-width: 59.99em) {
+			width: percentage(math.div(1, 3));
+			&:nth-of-type(3n + 1) {
+				clear: left;
+			}
+		}
+
+		@media only screen and (min-width: 60em) {
+			width: percentage(math.div(1, 4));
+			&:nth-of-type(4n + 1) {
+				clear: left;
+			}
+		}
+	}
+}
