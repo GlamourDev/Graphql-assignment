@@ -8,11 +8,18 @@ import Img2 from "../../assets/img/component-img-2.jpg";
 import Img3 from "../../assets/img/component-img-3.jpg";
 import Img4 from "../../assets/img/component-img-4.jpg";
 
-export interface Provider {
-	items: [];
+interface Provider {
+	posts: [];
 }
 
-const images = {
+interface Images {
+    [key: string]: string;
+}
+interface Pagination {
+    page: number;
+}
+
+const images: Images = {
 	Img1,
 	Img2,
 	Img3,
@@ -37,7 +44,7 @@ const GET_POSTS = gql`
 	}
 `;
 
-export const usePagination = (page = 1, items = 10) => {
+const usePagination = (page = 1, items = 10) => {
 	const { data, loading, error, fetchMore } = useQuery(GET_POSTS, {
 		variables: { page, items },
 		notifyOnNetworkStatusChange: true, // to show loader
@@ -54,13 +61,13 @@ const ListItems: React.FC<{}> = () => {
 		error,
 		fetchMore,
 	} = usePagination();
-	const [items, setItems] = useState();
+	const [items, setItems] = useState<Provider[]>([]);
 	const [page, setPage] = useState(1);
 	const hasToken = localStorage.getItem("auth-token");
 
 	useEffect(() => {
 		setItems(posts);
-
+		console.log(items);
 		if (!hasToken) {
 			navigate("/login");
 		}

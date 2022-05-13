@@ -5,16 +5,13 @@ import {
   ApolloClient,
   createHttpLink,
   InMemoryCache,
-  ApolloProvider,
-  useQuery,
-  gql
+  ApolloProvider
 } from "@apollo/client";
 import { setContext } from '@apollo/client/link/context';
 import './index.css';
 import Login from './components/Login/';
 import ListItems from './components/ListItems/';
 import ContactForm from './components/ContactForm';
-import NavBar from './components/NavBar';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 const httpLink = createHttpLink({
@@ -23,7 +20,7 @@ const httpLink = createHttpLink({
 
 const authLink = setContext((_, { headers }) => {
   // get the authentication token from local storage if it exists
-  const token = localStorage.getItem('auth-token');
+  const token = localStorage.getItem('auth-token') as string;
   // return the headers to the context so httpLink can read them
   return {
     headers: {

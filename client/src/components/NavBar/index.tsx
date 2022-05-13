@@ -5,11 +5,11 @@ import { useEffect, useState } from "react";
 const NavBar = () => {
 	const hasToken = localStorage.getItem("auth-token");
 	const hasEmail = localStorage.getItem("email");
-	const [isLoggedIn, setIsLoggedIn] = useState(0);
-	const [email, setEmail] = useState(0);
+	const [isLoggedIn, setIsLoggedIn] = useState(false);
+	const [email, setEmail] = useState<string>();
 
 	useEffect(() => {
-		if (hasToken) {
+		if (hasToken && hasEmail) {
 			setIsLoggedIn(true);
 			setEmail(hasEmail);
 		}

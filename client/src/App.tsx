@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import logo from './logo.svg'
-import './App.css'
+import './scss/style.scss'
 import { Outlet, Link } from 'react-router-dom';
 import Login from './components/Login/';
 import ListItems from './components/ListItems/';

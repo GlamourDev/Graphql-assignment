@@ -90,6 +90,7 @@ const Login = () => {
 						})
 					}
 					className="password"
+					type="password"
 					placeholder="Password"
 				></input>
 				<button type="submit" className="submit">

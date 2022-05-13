@@ -26,16 +26,6 @@ const resolvers = {
         if (sort) {
           query.order = [[sort, "ASC"]];
         }
-     /*    console.log(models.User.findAll(query)); */
-
-        /* await models.PostList.findAndCountAll(query).then(result => {
-          console.log(result.count);
-          return {
-            total: 1000,
-            filtered: result.count,
-            posts: result.rows
-          }
-        }) */
 
         return Promise.all([
           models.PostList.count(),
@@ -51,67 +41,30 @@ const resolvers = {
       } catch (error) {
         throw new Error(error.message);
       }
-    },
-
-/*     async getTutorials(root, args, {user}) {
-        const { page, size, title } = args;
-        var condition = title ? { title: { [Op.like]: `%${title}%` } } : null;
-
-        const { limit, offset } = getPagination(page, size);
-
-        Tutorial.findAndCountAll({ where: condition, limit, offset })
-            .then(data => {
-            const response = getPagingData(data, page, limit);
-            res.send(response);
-            })
-            .catch(err => {
-            res.status(500).send({
-                message:
-                err.message || "Some error occurred while retrieving tutorials."
-            });
-            });
-    } */
-
+    }
   },
 
-  /*   mutation {
-        registerUser(
-          firstName: 'not',
-          lastName: 'me'
-        ) {
-            token
-            user {
-                firstName
-                lastName
-            }
-        }
-      } */
 
   Mutation: {
-    async registerUser(root, { email, password }) {
+    async registerUser(_, { email, password }) {
       try {
         const userCheck = await models.User.findOne({
           where: { email: email },
         });
 
-        if (userCheck) {
-          throw new Error("Email already exists");
-        }
-
-        console.log(password);
+        if (userCheck) throw new Error("Email already exists");
 
         const user = await models.User.create({
           email,
           password,
         });
 
-
-
         const token = jsonwebtoken.sign(
           { email: user.email },
           process.env.JWT_SECRET,
           { expiresIn: "1y" }
         );
+
         let createdUser = {
             email: user.email,
         };
@@ -119,9 +72,10 @@ const resolvers = {
         return {
           token,
           user: createdUser,
-          message: "Registration succesfull",
+          message: "Registration successful",
         };
       } catch (error) {
+        console.log(error);
         throw new Error(error.message);
       }
     },
@@ -130,16 +84,14 @@ const resolvers = {
       try {
         const user = await models.User.findOne({ where: { email } });
 
-        if (!user) {
-          throw new Error("No user with that email");
-        }
+        if (!user) throw new Error("No user with that email");
+        
         const isValid = await models.User.validPassword(
           password,
           user.password
         );
-        if (!isValid) {
-          throw new Error("Incorrect password");
-        }
+
+        if (!isValid)  throw new Error("Incorrect password");
 
         // return jwt
         const token = jsonwebtoken.sign(
