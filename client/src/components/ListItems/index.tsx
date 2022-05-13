@@ -1,4 +1,4 @@
-import "./index.scss";
+
 import React, { useEffect, useState } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { useQuery, useMutation, gql } from "@apollo/client";
@@ -8,15 +8,16 @@ import Img2 from "../../assets/img/component-img-2.jpg";
 import Img3 from "../../assets/img/component-img-3.jpg";
 import Img4 from "../../assets/img/component-img-4.jpg";
 
-interface Provider {
-	posts: [];
+type Post = {
+	title: string;
+	description: string;
+};
+interface Posts {
+	posts: [Post];
 }
 
 interface Images {
-    [key: string]: string;
-}
-interface Pagination {
-    page: number;
+	[key: string]: string;
 }
 
 const images: Images = {
@@ -61,7 +62,7 @@ const ListItems: React.FC<{}> = () => {
 		error,
 		fetchMore,
 	} = usePagination();
-	const [items, setItems] = useState<Provider[]>([]);
+	const [items, setItems] = useState<Posts>();
 	const [page, setPage] = useState(1);
 	const hasToken = localStorage.getItem("auth-token");
 
@@ -72,7 +73,6 @@ const ListItems: React.FC<{}> = () => {
 			navigate("/login");
 		}
 	}, [posts]);
-	//const [items, setItems] = useState<Provider[]>(Array.from({ length: 10 }));
 
 	const fetchMoreData = () => {
 		console.log("Fetch more data");
@@ -80,11 +80,11 @@ const ListItems: React.FC<{}> = () => {
 
 		fetchMore({
 			variables: {
-				page: page,
+				page,
 			},
 			updateQuery: (previousResult, { fetchMoreResult }) => {
 				const newPosts = fetchMoreResult.getPostsList.posts;
-				const total = fetchMoreResult.getPostsList.total;
+				const {total} = fetchMoreResult.getPostsList;
 
 				return newPosts.length
 					? {
@@ -104,7 +104,7 @@ const ListItems: React.FC<{}> = () => {
 			<InfiniteScroll
 				dataLength={posts.posts.length}
 				next={fetchMoreData}
-				hasMore={true}
+				hasMore
 				loader={<></>}
 			>
 				<ul className="list-items">

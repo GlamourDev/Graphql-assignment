@@ -80,7 +80,7 @@ const Login = () => {
 					className="email"
 					placeholder="Email"
 					autoFocus
-				></input>
+				/>
 				<input
 					value={formState.password}
 					onChange={(e) =>
@@ -92,7 +92,7 @@ const Login = () => {
 					className="password"
 					type="password"
 					placeholder="Password"
-				></input>
+				/>
 				<button type="submit" className="submit">
 					{formState.login ? "Sign in" : "Sign up"}
 				</button>
@@ -114,6 +114,6 @@ const Login = () => {
 			</form>
 		</div>
 	);
-};
+}
 
 export default Login;

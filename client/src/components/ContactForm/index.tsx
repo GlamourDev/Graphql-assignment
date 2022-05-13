@@ -35,6 +35,9 @@ const ContactForm: React.FC<{}> = () => {
 						}
 					}
 
+					Object.entries(values).forEach(e => console.log(e[0], e[1]));
+
+
 					return errors;
 				}}
 				onSubmit={(values, { setSubmitting }) => {

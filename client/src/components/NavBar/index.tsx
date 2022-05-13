@@ -18,9 +18,7 @@ const NavBar = () => {
 	return (
 		<div className="navbar">
 			{isLoggedIn ? (
-				<>
-					<div className="navbar__name-container">{email}</div>
-				</>
+				<div className="navbar__name-container">{email}</div>
 			) : (
 				<div className="navbar__name-container">
 					<NavLink to="/login">Log in</NavLink>

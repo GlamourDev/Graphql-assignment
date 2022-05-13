@@ -1,14 +1,8 @@
-import { useState } from 'react'
-import logo from './logo.svg'
 import './scss/style.scss'
-import { Outlet, Link } from 'react-router-dom';
-import Login from './components/Login/';
-import ListItems from './components/ListItems/';
+import { Outlet } from 'react-router-dom';
 import NavBar from './components/NavBar';
 
-function App() {
-
-  return (
+const App = () => (
     <div className="frame">
       <div className="frame__scroller">
         <NavBar />
@@ -18,6 +12,5 @@ function App() {
       </div>
     </div>
   )
-}
 
 export default App
