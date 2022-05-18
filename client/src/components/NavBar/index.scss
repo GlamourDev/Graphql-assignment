@@ -1,31 +1,31 @@
 .navbar {
-	display: flex;
-	justify-content: space-between;
-	padding: 0 2.625rem;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 2.625rem;
 
-	&__name-container {
-		display: flex;
-		align-self: center;
-	}
+  &__name-container {
+    display: flex;
+    align-self: center;
+  }
 
-	&__menu {
-		display: flex;
-		li {
-			list-style: none;
-			&:last-child {
-				margin-left: 1rem;
-			}
-			a {
-				font-size: 1rem;
-				letter-spacing: 0px;
-				color: #151619;
-				opacity: 1;
-				text-decoration: none;
+  &__menu {
+    display: flex;
+    li {
+      list-style: none;
+      &:last-child {
+        margin-left: 1rem;
+      }
+      a {
+        font-size: 1rem;
+        letter-spacing: 0px;
+        color: #151619;
+        opacity: 1;
+        text-decoration: none;
 
-				&.active {
-					border-bottom: 2px solid #151619;
-				}
-			}
-		}
-	}
+        &.active {
+          border-bottom: 2px solid #151619;
+        }
+      }
+    }
+  }
 }
